@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 
-const User = require("./api/users/user.schema");
+const User = require("./api/users/user_schema_DTO.js");
 const { Roles } = require("./enums");
 
 const getUserForm = ({ email, username, _id }) => {

@@ -1,7 +1,7 @@
 const async = require("async")
-const { omit } = require("lodash")
 const mongoose = require('mongoose');
 
+const auth = require("../../authentication")
 const User = require("./user_DAO")
 
 const postSignup = (req, res) => {
@@ -32,6 +32,11 @@ const postSignup = (req, res) => {
     )
 }
 
+const postLogout = (req, res) => {
+    res.clearCookie("token")
+    res.json({ success: true, msg: "Ok!" })
+}
+
 const getUserAll = (req, res) => {
     User.syncGetAllUser
     .then(result => {
@@ -49,20 +54,57 @@ const getUserAll = (req, res) => {
             ))
         }
         return res.status(200).json(response);
-        console.log(result)
     })
     .catch(err => {
         res.status(500).json({error: err});
     })
 }
 
-const postLogout = (req, res) => {
-    res.clearCookie("token")
-    res.json({ success: true, msg: "Ok!" })
+const postLogin = (req, res) => {
+    req.checkBody("email", "Email is not empty!").notEmpty()
+    req.checkBody("password", "Password is not empty!").notEmpty()
+  
+    const errors = req.validationErrors(req)
+  
+    if (errors) return res.status(422).json({ success: false, msg: "Bad Argument", errors })
+  
+    const { email, password } = req.body
+  
+    async.waterfall(
+      [
+        callback => User.asyncFindUser({ email, password }, callback),
+        User.asyncVerifyAccount
+      ],
+      (err, result) => {
+        if (err) return res.json({ success: false, errors: err })
+        if (!result.isMatch) return res.json({ success: false, msg: "Can not Login", errors: { errMsg: "Email and Password do not match!" } })
+        let token = auth.signToken(result.doc)
+        let user = {
+          username: result.doc.username,
+          email: result.doc.email,
+          role: result.doc.role,
+          updatedAt: result.doc.updatedAt,
+          createdAt: result.doc.createdAt
+        }
+  
+        res.cookie("token", token, { maxAge: 1000 * 60 * 60 * 24, httpOnly: true })
+        return res.json({ success: true, msg: "Login successfully!", token, user })
+      }
+    )
+}
+const deleteUser  = (req, res) => {
+    const username = req.params.id;
+    if(username){
+        User.syncDeleteUser(username)
+        .then(result => res.status(201).json({result}))
+        .catch(err => res.status(500).json({err}))
+    }
 }
 
 module.exports = {
     postSignup,
     getUserAll,
-    postLogout
+    postLogout,
+    postLogin,
+    deleteUser
 }

@@ -40,9 +40,21 @@ const asyncVerifyAccount = (userCheck, callback) => {
     })
 }
 
+const syncDeleteUser = (username) => {
+    return new Promise((resolve, reject) => {
+        UserModel
+        .findOneAndDelete({ username }, (err, todo) => {
+            if (err) reject(err)
+            const respon = {msg: "delete successfully", todo}
+            resolve(respon) 
+        })
+    })
+}
+
 module.exports = {
     asyncFindUser,
     asyncCreateUser,
     asyncVerifyAccount,
     syncGetAllUser,
+    syncDeleteUser
 }
