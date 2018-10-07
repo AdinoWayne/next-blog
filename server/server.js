@@ -19,6 +19,7 @@ const controller = require("./global_controller");
  */
 const userRouter = require("./api/users")
 const categoryRouter = require("./api/categories")
+const postRouter = require("./api/posts")
 
 app.prepare()
     .then(() => {
@@ -45,6 +46,7 @@ app.prepare()
         })
 
         server.use("/api/categories", auth.isAuthApi, categoryRouter)
+        server.use("/api/post", auth.isAuthApi, postRouter)
         server.use("/api/users", userRouter)
 
         server.get("/", controller.handleNormalRequest);
