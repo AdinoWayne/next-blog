@@ -18,6 +18,7 @@ const controller = require("./global_controller");
  * Routers
  */
 const userRouter = require("./api/users")
+const categoryRouter = require("./api/categories")
 
 app.prepare()
     .then(() => {
@@ -43,6 +44,7 @@ app.prepare()
             next()
         })
 
+        server.use("/api/categories", auth.isAuthApi, categoryRouter)
         server.use("/api/users", userRouter)
 
         server.get("/", controller.handleNormalRequest);
