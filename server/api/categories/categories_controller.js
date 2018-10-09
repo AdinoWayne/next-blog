@@ -4,9 +4,24 @@ const Category = require("./categories_DAO")
 const CategorySchema = require("./categories_schema_DTO")
 
 const getListOfCategories = (req, res) => {
-    CategorySchema.getCategories((err ,result) => {
+    Category.getCategories((err ,result, docs) => {
         if (err) return res.status(500).json(err)
-        return res.status(200).json(result)
+        console.log(docs)
+        const respon = {
+            status: result,
+            count: docs.length,
+            categories: docs.map(elem => (
+                {
+                    _id: elem._id,
+                    name: elem.name,
+                    title: elem.title,
+                    description: elem.description,
+                    isHidden: elem.isHidden,
+                    isDeleted: elem.isDeleted
+                }
+            ))
+        }
+        return res.status(200).json(respon)
     })
 }
 const editCategory = (req, res) => {}
@@ -21,7 +36,7 @@ const _getListOfCategories = callback =>{
 }
 
 const createCategory  = (req, res) => {
-    req,checkBody("name", "category name is required").notEmpty()
+    req.checkBody("name", "category name is required").notEmpty()
     const errors  =  req.validationErrors(req)
     if (errors) return res.status(422).json({success: false, msg: "Bad Argument", errors })
     const { name, description, title } = req.body
@@ -45,4 +60,4 @@ module.exports = {
     editCategory,
     deleteCategory,
     createCategory
-  }
+}

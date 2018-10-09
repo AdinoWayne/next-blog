@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^3.2.0",
+    "antd-mobile": "^2.2.5",
     "async": "^2.6.0",
     "axios": "^0.17.1",
     "bcryptjs": "^2.4.3",
@@ -45,5 +46,8 @@
     "reselect": "^3.0.1",
     "speakingurl": "^14.0.1",
     "styled-components": "^3.4.9"
+  },
+  "devDependencies": {
+    "webpack-bundle-analyzer": "^3.0.2"
   }
 }

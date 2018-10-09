@@ -83,7 +83,7 @@ const hidePost = (req, res) => {}
 
 module.exports = {
     getListOfPosts,
-    _getListOfPosts,
+    _getListOfPost,
     getSinglePost,
     _getSinglePost,
     createPost,

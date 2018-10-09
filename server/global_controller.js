@@ -4,7 +4,10 @@ const async = require("async")
 const dev = process.env.NODE_ENV !== "production"
 const app = next({ dev })
 const handle = app.getRequestHandler()
+
 const categoryController = require("./api/categories/categories_controller")
+const postController = require("./api/posts/post_controller")
+
 const handleNormalRequest = (req, res) => {
     if(dev) {
         const handleDev = req.app.getRequestHandler();

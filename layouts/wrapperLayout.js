@@ -1,0 +1,49 @@
+import { Component } from "react"
+import { connect } from "react-redux"
+import Router from "next/router"
+import Link from "next/link"
+
+class Wrapper extends Component {
+  render() {
+    return (
+      <div className="syn-layout">
+        <header className="syn-header">
+          <div className="syn-header__wrapper">
+            <div className="logo">
+              <img src="/static/images/guitar.png" width="60px" height="auto" />
+            </div>
+
+            <div className="syn-header__navbar">
+              <Link prefetch href="/"><a style={{ fontSize: 28, fontWeight: 600 }}>Synyster</a></Link>
+              <nav>
+                <span className="nav-item">
+                  <Link prefetch href="/"><a>Home</a></Link>
+                </span>
+                <span className="nav-item">
+                  <Link prefetch href="/about"><a>About</a></Link>
+                </span>
+              </nav>
+            </div>
+          </div>
+        </header>
+
+        <div className="syn-layout__content">
+          {this.props.children}
+        </div>
+
+        <footer className="syn-footer">
+          <div className="syn-footer__wrapper">
+            <span>
+              Copyright © 2018 Adino
+            </span>
+            <div>
+              <span>Based on cactus-dark</span>
+            </div>
+          </div>
+        </footer>
+      </div>
+    )
+  }
+}
+
+export default connect(null, null)(Wrapper)

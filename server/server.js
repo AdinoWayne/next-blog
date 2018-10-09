@@ -14,11 +14,13 @@ const chalk = require("chalk");
 const mongodbURI = dev ? process.env.DB_DEV : process.env.DB_PROD;
 
 const controller = require("./global_controller");
+const auth = require("./authentication")
 /**
  * Routers
  */
 const userRouter = require("./api/users")
 const categoryRouter = require("./api/categories")
+const postRouter = require("./api/posts")
 
 app.prepare()
     .then(() => {
@@ -46,6 +48,7 @@ app.prepare()
 
         server.use("/api/categories", auth.isAuthApi, categoryRouter)
         server.use("/api/users", userRouter)
+        server.use("/api/posts", postRouter)
 
         server.get("/", controller.handleNormalRequest);
         server.get("*", controller.handleNormalRequest)

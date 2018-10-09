@@ -1,6 +1,6 @@
 const CategoryModel = require("./categories_schema_DTO")
 
-const getCategories = callback => {
+const getCategories = (callback) => {
     CategoryModel
         .find({ isDeleted: false })
         .sort('-createAt')
