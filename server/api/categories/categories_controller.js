@@ -6,7 +6,6 @@ const CategorySchema = require("./categories_schema_DTO")
 const getListOfCategories = (req, res) => {
     Category.getCategories((err ,result, docs) => {
         if (err) return res.status(500).json(err)
-        console.log(docs)
         const respon = {
             status: result,
             count: docs.length,

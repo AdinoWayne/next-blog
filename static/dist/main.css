@@ -1,0 +1,24 @@
+a {
+    text-decoration: none
+}
+.syn-header__navbar {
+    position: relative;
+    height: 100px;
+}
+.syn-logo {
+    position: relative;
+    width: 160px;
+    margin: 0 auto;
+}
+.ant-layout-content {
+    margin-top: 100px
+}
+li {
+    list-style: none;
+}
+.syn-header__navbar li {
+    margin: 10px;
+}
+.nav-menu a {
+    padding-left: 10px;
+}

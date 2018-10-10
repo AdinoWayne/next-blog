@@ -13,7 +13,7 @@ export const InitialHomepage = _toClient => {
 
 export const getPosts = () => {
     return (dispatch) => {
-        axios.get("/api/posts/")
+        axios.get("/api/posts")
         .then(res => {
             if (res.status === 200 && res.data.success === true){
                 dispatch({
@@ -29,7 +29,7 @@ export const getPosts = () => {
 }
 export const getCategory = () => {
     return dispatch => {
-        axios.get("/api/categories/")
+        axios.get("/api/categories")
         .then(res => {
             if (res.status === 200 && res.data.success === true)
             dispatch({

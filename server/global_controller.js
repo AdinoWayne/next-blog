@@ -25,8 +25,29 @@ const handleNextRequest = () => {
     return app.render(req, res, path, req.params)
 }
 const middlewareGetHomepage = (req, res, next) => {
-
-}
+    async.parallel({
+        categories: (callback) => {
+            categoryController._getListOfCategories((err, result) => {
+            if (err) return callback(err)
+            return callback(null, result)
+            })
+      },
+        posts: (callback) => {
+            postController._getListOfPost((err, result) => {
+            if (err) return callback(err)
+            return callback(null, result)
+            })
+        }
+    }, (err, result) => {
+        if (err) {
+            req._err = err
+            return next()
+        }
+    
+        req._toClient = result
+        return next()
+    })
+  }
   
 const middlewareGetSinglePost = (req, res, next) => {
 

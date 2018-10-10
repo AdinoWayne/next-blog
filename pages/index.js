@@ -16,6 +16,7 @@ class Index extends Component {
             store.dispatch(getPosts);
             store.dispatch(getCategory)
         }
+
         const sendString = "Adino play riven fast Q have pentakill ezly"
         return { isServer: argument.isServer }
     }
@@ -45,8 +46,8 @@ class Index extends Component {
 
 const mapStateToProps = state => {
     return {
-        posts: state.homepage.ui.posts,
-        categories: state.homepage.ui.categories
+        posts: state.homepage.ui.postList,
+        categories: state.homepage.ui.categoryList
     }
 }
 

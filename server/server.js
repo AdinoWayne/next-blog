@@ -50,7 +50,7 @@ app.prepare()
         server.use("/api/users", userRouter)
         server.use("/api/posts", postRouter)
 
-        server.get("/", controller.handleNormalRequest);
+        server.get("/", controller.middlewareGetHomepage, controller.handleNormalRequest);
         server.get("*", controller.handleNormalRequest)
         server.listen(server.get("port"), (err) => {
         if (err) throw err;

@@ -12,7 +12,7 @@ const getListOfPosts = (req, res) => {
 }
 
 const _getListOfPost = callback => {
-    Post.getPost( (err, result) => {
+    Post.getPosts( (err, result) => {
         if (err) return callback(err, null)
         return callback(null, result.docs)
     })
