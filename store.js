@@ -1,14 +1,15 @@
-import { createStore, applyMiddleware, compose } from "redux"
-import thunkMiddleware from "redux-thunk"
-import withRedux from "next-redux-wrapper"
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import withRedux from "next-redux-wrapper";
+import logger from "redux-logger";
 
-import reducers from "./reducers"
+import reducers from "./reducers";
 
 const initStore = (initState = {}) => createStore(
     reducers,
     initState,
     compose(
-      applyMiddleware(thunkMiddleware),
+      applyMiddleware(thunk),
       typeof window !== "undefined" && window.devToolsExtension
           ? window.devToolsExtension()
           : f => f
@@ -18,4 +19,3 @@ const initStore = (initState = {}) => createStore(
 export default (mapStateToProps, actions) => {
   return (component) => withRedux(initStore, mapStateToProps, actions)(component)
 }
-  

@@ -30,6 +30,18 @@ const bigLayout = OurChildComponent => {
         
               return { ...childProps, isAuthServer, isInAdminPage, verifiedUser }
         }
+
+        componentDidMount() {
+            const { isAuthServer, verifiedUser } = this.props
+            const user = localStorage.getItem("user")
+            const token = localStorage.getItem("token")
+
+            if (isAuthServer && (!user || !token)) {
+                localStorage.setItem("user", JSON.stringify(verifiedUser))
+                localStorage.setItem("token", verifiedUser.token)
+            }
+        }
+
         renderChildren = () => {
             return (
                 <Wrapper>
@@ -69,6 +81,7 @@ const bigLayout = OurChildComponent => {
                         <link href="/static/fav.png" type="image/x-icon" sizes="32x32 16x16" rel="icon" />
                         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/paraiso-dark.min.css" />
                         <link href={`/static/${this.getMainStyle()}`} rel="stylesheet" />
+                        <link href="../static/css/antd.min.css" rel="stylesheet" />
                         <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
                         <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
                     </Head>

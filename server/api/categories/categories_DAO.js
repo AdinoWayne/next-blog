@@ -8,7 +8,7 @@ const getCategories = (callback) => {
         .exec( (err, docs) => {
             if (err) return callback(err, { success: false, msg: "Something went wrong ", errors: err })
             if (docs.length === 0) return callback(err, { success: false, msg: "not data found", errors: err})
-            return callback (null, true, docs)
+            return callback (null, {success: true, docs })
         })
 }
 module.exports = { getCategories }

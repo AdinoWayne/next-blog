@@ -4,8 +4,9 @@ import Router from "next/router"
 import Link from "next/link"
 
 import { Layout } from 'antd'
-import { Menu, Icon } from 'antd';
+import { Menu, Icon, Tabs } from 'antd';
 const { Header, Footer, Content} = Layout
+const TabPane = Tabs.TabPane;
 class Wrapper extends Component {
   constructor(props) {
     super(props);
@@ -26,27 +27,20 @@ class Wrapper extends Component {
               <Link prefetch href="/"><a style={{ fontSize: 28, fontWeight: 600 }}>Adino Home</a></Link>
               </div>
               <nav className="nav-menu">
-                <Menu
+                <Tabs
                   onClick = {this.handleClick}
                   selectedKeys={[this.state.current]}
+                  mode="horizontal"
                 >
-                  <Menu.Item key="1">
-                  <Icon type="bank" theme="outlined" />
-                      <Link prefetch href="/"><a>Home</a></Link>
-                  </Menu.Item>
-                  <Menu.Item key="2">
-                  <Icon type="thunderbolt" theme="outlined" />
-                      <Link prefetch href="/about"><a>About</a></Link>
-                  </Menu.Item>
-                  <Menu.Item key="3">
-                  <Icon type="dashboard" theme="outlined" />
-                      <Link prefetch href="/project"><a>Project</a></Link>
-                  </Menu.Item>
-                  <Menu.Item key="4">
-                  <Icon type="coffee" theme="outlined" />
-                      <Link prefetch href="/refer"><a>Refer</a></Link>
-                  </Menu.Item>
-                </Menu>
+                  <TabPane key="1" tab={<span><Icon type="thunderbolt"/><Link prefetch href="/"><a>Home</a></Link></span>}> 
+                  </TabPane>
+                  <TabPane key="2" tab={<span><Icon type="thunderbolt"/><Link prefetch href="/about"><a>About</a></Link></span>}>
+                  </TabPane>
+                  <TabPane key="3" tab={<span><Icon type="thunderbolt"/><Link prefetch href="/project"><a>Project</a></Link></span>}>
+                  </TabPane>
+                  <TabPane key="4" tab={<span><Icon type="thunderbolt"/><Link prefetch href="/refer"><a>Refer</a></Link></span>}>
+                  </TabPane>
+                </Tabs>
               </nav>
             </div>
           </div>

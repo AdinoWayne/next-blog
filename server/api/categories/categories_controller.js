@@ -4,12 +4,12 @@ const Category = require("./categories_DAO")
 const CategorySchema = require("./categories_schema_DTO")
 
 const getListOfCategories = (req, res) => {
-    Category.getCategories((err ,result, docs) => {
+    Category.getCategories((err , result) => {
         if (err) return res.status(500).json(err)
         const respon = {
-            status: result,
-            count: docs.length,
-            categories: docs.map(elem => (
+            status: result.success,
+            count: result.docs.length,
+            categories: result.docs.map(elem => (
                 {
                     _id: elem._id,
                     name: elem.name,
@@ -29,7 +29,7 @@ const deleteCategory = (req, res) => {}
 
 const _getListOfCategories = callback =>{
     Category.getCategories( (err, result) => {
-        if (err) return callback(err, null)
+        if (err) {return callback(err, null)}
         return callback(null, result.docs)
     })
 }

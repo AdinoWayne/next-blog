@@ -43,7 +43,7 @@ const middlewareGetHomepage = (req, res, next) => {
             req._err = err
             return next()
         }
-    
+
         req._toClient = result
         return next()
     })
