@@ -38,3 +38,15 @@ li {
 .syn-layout__content {
     padding-top: 15%
 }
+.syn-form {
+
+    max-width: 400px;
+    margin: 100px auto;
+}
+.syn-form input {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.anticon:before {
+    display: none !important;
+}

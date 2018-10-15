@@ -6,6 +6,7 @@ import { LocaleProvider } from "antd"
 import Router from "next/router"
 import nprogress from 'nprogress'
 import Wrapper from "./wrapperLayout"
+import ManagementLayout from "./manageLayout"
 import NProgress from '../components/NProgress'
 
 import { getUserFromRequest, isInManagementPage } from "../utils/tools"
@@ -43,6 +44,14 @@ const bigLayout = OurChildComponent => {
         }
 
         renderChildren = () => {
+        if (this.props.isInAdminPage) {
+            return (
+                <ManagementLayout>
+                    <OurChildComponent { ...this.props } />
+                    <NProgress />
+                </ManagementLayout>
+            )
+            }
             return (
                 <Wrapper>
                     <OurChildComponent { ...this.props } />

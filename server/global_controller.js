@@ -16,7 +16,7 @@ const handleNormalRequest = (req, res) => {
     return handle(req, res);
 }
 
-const handleNextRequest = () => {
+const handleNextRequest = (req, res) => {
     const pathname = req.route.path
     const splittedPathname = pathname.split("/")
     const pathList =splittedPathname.filter(elem => elem.length > 0 && elem[0] !==":" );
@@ -50,11 +50,23 @@ const middlewareGetHomepage = (req, res, next) => {
   }
   
 const middlewareGetSinglePost = (req, res, next) => {
+    const { postSlug } = req.params
 
+    postController._getSinglePost(postSlug, (err, { success, doc, msg }) => {
+      if (err || success === false) {
+        req._err = err || {}
+        req._err.msg = msg
+        return next()
+      }
+  
+      req._post = doc
+      return next()
+    })
 }
   
 const handleGetPostPage = (req, res) => {
-
+    if (dev) return req.app.render(req, res, '/posts', req.params)
+    return app.render(req, res, '/posts', req.params)
 }
 
 module.exports = {

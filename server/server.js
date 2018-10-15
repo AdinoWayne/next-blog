@@ -50,6 +50,12 @@ app.prepare()
         server.use("/api/users", userRouter)
         server.use("/api/posts", postRouter)
 
+        server.get("/manages/post-management/new", controller.handleNextRequest)
+        server.get("/manages/post-management", controller.handleNextRequest)
+        server.get("/manages", auth.isAuthServer, controller.handleNormalRequest)
+        server.get("/manages/login", controller.handleNormalRequest)
+        server.get("/manages/signup", controller.handleNormalRequest)
+        server.get("/posts/:postSlug", controller.middlewareGetSinglePost, controller.handleGetPostPage)
         server.get("/", controller.middlewareGetHomepage, controller.handleNormalRequest);
         server.get("*", controller.handleNormalRequest)
         server.listen(server.get("port"), (err) => {
