@@ -50,3 +50,7 @@ li {
 .anticon:before {
     display: none !important;
 }
+.new-form-posts h3,input,textarea,div {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
