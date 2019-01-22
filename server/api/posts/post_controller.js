@@ -77,7 +77,13 @@ const editPost = (req, res) => {
     })
 }
   
-const deletePost = (req, res) => {}
+const deletePost = (req, res) => {
+    const postId = req.params.postId
+    PostSchema.findByIdAndRemove(postId, (err, doc) => {
+        if (err) return res.status(422).json({ err })
+        return res.status(200).json({ doc })
+    })
+}
 
 const hidePost = (req, res) => {}
 

@@ -1,6 +1,7 @@
 import { Component } from "react"
 import Link from "next/link"
 import { Button, Input, Tag } from "antd"
+import Router from "next/router"
 
 import Notification from "../../../components/notifications"
 import { pageWrapper } from "../../../utils/wrapper"
@@ -17,29 +18,35 @@ class ManageNewPostPage extends Component {
         this.state = {
             title: "",
             content: "",
-            selectedTags: []
+            tags: [],
         }
     }
     handleChange(tag, checked) {
-        const { selectedTags } = this.state;
+        const { tags } = this.state;
         const nextSelectedTags = checked
-            ? [...selectedTags, tag]
-            : selectedTags.filter(t => t !== tag);
+            ? [...tags, tag]
+            : tags.filter(t => t !== tag);
         console.log('You are interested in: ', nextSelectedTags);
-        this.setState({ selectedTags: nextSelectedTags });
+        this.setState({ tags: nextSelectedTags });
     }
 
     handleCreateNewPost = () => {
         sendPost("/api/posts", null, this.state)
-        .then(res => console.log(res))
-        .then(err => console.log(err))
+        .then(() => {
+            Notification.success("create post success !")
+            Router.replace("/manages/post-management")
+        })
+        .catch(err => {
+            Notification.errorCatch(err, "Something went wrong catch !")
+        })
     }
 
     render() {
-        const { selectedTags } = this.state;
+        const { tags } = this.state;
+        console.log(tags)
         return (
             <div style={{ maxWidth: 700, margin: "30px auto" }} className="new-form-posts">
-            <Link href="/manage/post-management">
+            <Link href="/manages/post-management">
               <a><h3>Back</h3></a>
             </Link>
             <h3>Title</h3>
@@ -55,7 +62,7 @@ class ManageNewPostPage extends Component {
                     {tagsFromServer.map(tag => (
                     <CheckableTag
                         key={tag}
-                        checked={selectedTags.indexOf(tag) > -1}
+                        checked={tags.indexOf(tag) > -1}
                         onChange={checked => this.handleChange(tag, checked)}
                     >
                         {tag}

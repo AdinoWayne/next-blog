@@ -39,7 +39,6 @@ const updatePostById = (post, callback) => {
         })
 }
   
-  
 module.exports = {
     getPosts,
     getSinglePostBySlug,

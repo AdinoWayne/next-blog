@@ -51,7 +51,7 @@ app.prepare()
         server.use("/api/posts", postRouter)
 
         server.get("/manages/post-management/new", controller.handleNextRequest)
-        server.get("/manages/post-management", controller.handleNextRequest)
+        server.get("/manages/post-management", controller.handleNormalRequest)
         server.get("/manages", auth.isAuthServer, controller.handleNormalRequest)
         server.get("/manages/login", controller.handleNormalRequest)
         server.get("/manages/signup", controller.handleNormalRequest)
